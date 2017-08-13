@@ -11,6 +11,9 @@ import android.database.sqlite.*;
 import android.database.*;
 import android.content.*;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class MainActivity extends Activity implements OnClickListener
 {
 	TextView mainTextView;
@@ -41,23 +44,24 @@ public class MainActivity extends Activity implements OnClickListener
 		values.put("pub_date", "2017-07-30");
 		long a = db.insert("t_note", null, values);
 
-		StringBuilder str = new StringBuilder();
-
+		List<String> list = new ArrayList<String>();
+		
 		try
 		{
 			cursor = db.rawQuery("select * from t_note", null);
 
-			//while (cursor.moveToNext())
-			//	str.append(cursor.getString(cursor.getColumnIndex("id")) + " __ ");
+			while (cursor.moveToNext())
+				list.add(cursor.getString(cursor.getColumnIndex("id")) + " __ ");
 
-			//SimpleAdapter sa = new SimpleAdapter(this,android.R.layout.simple_list_item_1, cursor.);
-			SimpleCursorAdapter sca = new SimpleCursorAdapter(this, 
-															  android.R.layout.simple_list_item_1,
-															  cursor,
-															  new String[]{"id"},
-															  new int[]{android.R.id.text1});
-			mainListView.setAdapter(sca);
-			//mainListView
+			ArrayAdapter sa = new ArrayAdapter(this,
+						android.R.layout.simple_list_item_1,
+						list);
+//			SimpleCursorAdapter sca = new SimpleCursorAdapter(this, 
+//															  android.R.layout.simple_list_item_1,
+//															  cursor,
+//															  new String[]{"id"},
+//															  new int[]{android.R.id.text1});
+			mainListView.setAdapter(sa);
 
 		}
 		catch (Exception ex)
