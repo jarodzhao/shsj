@@ -51,16 +51,12 @@ public class MainActivity extends Activity implements OnClickListener
 			cursor = db.rawQuery("select * from t_note", null);
 
 			while (cursor.moveToNext())
-				list.add(cursor.getString(cursor.getColumnIndex("id")) + " __ ");
+				list.add(cursor.getString(cursor.getColumnIndex("id")));
 
 			ArrayAdapter sa = new ArrayAdapter(this,
 						android.R.layout.simple_list_item_1,
 						list);
-//			SimpleCursorAdapter sca = new SimpleCursorAdapter(this, 
-//															  android.R.layout.simple_list_item_1,
-//															  cursor,
-//															  new String[]{"id"},
-//															  new int[]{android.R.id.text1});
+
 			mainListView.setAdapter(sa);
 
 		}
