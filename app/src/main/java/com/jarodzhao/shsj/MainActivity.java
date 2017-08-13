@@ -13,6 +13,7 @@ import android.content.*;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.*;
 
 public class MainActivity extends Activity implements OnClickListener
 {
@@ -27,42 +28,46 @@ public class MainActivity extends Activity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+		insertDate();
 
-		findView();
+		mainListView = (ListView) findViewById(R.id.mainListView1);
 
-		Note note  = new Note();
+		//Log.d("jarod", ddHelper.getDatabaseName());
+
 		DDHelper ddHelper = new DDHelper(this, null, 1);
 		SQLiteDatabase db = ddHelper.getWritableDatabase();
 
-		Log.d("jarod", ddHelper.getDatabaseName());
+		//db.execSQL("delete from t_note");
 
 		Cursor cursor = null;
-		ContentValues values = new ContentValues();
-		values.put("id", note.getId());
-		values.put("title", "abc123");
-		values.put("content", "这里显示正文内容...");
-		values.put("pub_date", "2017-07-30");
-		long a = db.insert("t_note", null, values);
 
-		List<String> list = new ArrayList<String>();
-		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
 		try
 		{
 			cursor = db.rawQuery("select * from t_note", null);
 
 			while (cursor.moveToNext())
-				list.add(cursor.getString(cursor.getColumnIndex("id")));
+			{
+				Map<String,Object> map = new HashMap<String, Object>();
 
-			ArrayAdapter sa = new ArrayAdapter(this,
-						android.R.layout.simple_list_item_1,
-						list);
+				map.put("title", cursor.getString(cursor.getColumnIndex("title")));
+				map.put("content", cursor.getString(cursor.getColumnIndex("content")));
+				map.put("pub_date", cursor.getString(cursor.getColumnIndex("pub_date")));
+				list.add(map);
+			}
+
+			SimpleAdapter sa = new SimpleAdapter(this, list,
+												 R.layout.layout_list_style,
+												 new String[]{"title","content","pub_date"},
+												 new int[]{R.id.text_title, R.id.text_content,R.id.text_date}
+												 );
 
 			mainListView.setAdapter(sa);
-
 		}
 		catch (Exception ex)
 		{
-			Log.d("jarod", "error=" + ex.toString());
+			Log.d("jarod", ex.toString());
 		}
 		finally
 		{
@@ -72,14 +77,30 @@ public class MainActivity extends Activity implements OnClickListener
 
     }
 
-	//初始化控件方法
-	void findView()
+	//生成测试数据
+	void insertDate()
 	{
-		//mainTextView = (TextView) findViewById(R.id.mainTextView1);
-		mainEditText = (EditText) findViewById(R.id.mainEditText1);
-		mainListView = (ListView) findViewById(R.id.mainListView1);
-		mainButton = (Button) findViewById(R.id.mainButton1);
-		mainButton.setOnClickListener(this);
+
+		DDHelper ddHelper = new DDHelper(this, null, 1);
+		SQLiteDatabase db = ddHelper.getWritableDatabase();
+
+		Note note;
+		ContentValues values;
+
+		for (int i=1;i < 20;i++)
+		{
+			note  = new Note();
+			values = new ContentValues();
+
+			values.put("id", note.getId());
+			values.put("title", "abc #" + i);
+			values.put("content", "这里显示正文内容... #" + i);
+			values.put("pub_date", new Date().toLocaleString());
+
+			db.insert("t_note", null, values);
+		}
+
+		db.close();
 	}
 
 	@Override
@@ -87,9 +108,7 @@ public class MainActivity extends Activity implements OnClickListener
 	{
 		switch (view.getId())
 		{
-			case R.id.mainButton1:
-
-				break;
+			
 		}
 	}
 }
