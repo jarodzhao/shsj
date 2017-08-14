@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Note
 {
-	private String id;
+	private UUID id;
 
 	private String title;
 
@@ -12,10 +12,10 @@ public class Note
 	private Date pub_date;
 
 	public Note(){
-		this.id = Common.getUuid();
+		this.id = UUID.randomUUID();
 	}
 
-	public String getId()
+	public UUID getId()
 	{
 		return id;
 	}

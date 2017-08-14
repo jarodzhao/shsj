@@ -45,13 +45,13 @@ public class MainActivity extends Activity implements OnClickListener
 
 		try
 		{
-			cursor = db.rawQuery("select * from t_note", null);
+			cursor = db.rawQuery("select * from t_note order BY pub_date desc", null);
 
 			while (cursor.moveToNext())
 			{
 				Map<String,Object> map = new HashMap<String, Object>();
 
-				map.put("title", cursor.getString(cursor.getColumnIndex("title")));
+				map.put("title", cursor.getString(cursor.getColumnIndex("id")));
 				map.put("content", cursor.getString(cursor.getColumnIndex("content")));
 				map.put("pub_date", cursor.getString(cursor.getColumnIndex("pub_date")));
 				list.add(map);
@@ -87,12 +87,12 @@ public class MainActivity extends Activity implements OnClickListener
 		Note note;
 		ContentValues values;
 
-		for (int i=1;i < 20;i++)
+		for (int i=1;i < 2;i++)
 		{
 			note  = new Note();
 			values = new ContentValues();
 
-			values.put("id", note.getId());
+			values.put("id", note.getId().toString());
 			values.put("title", "abc #" + i);
 			values.put("content", "这里显示正文内容... #" + i);
 			values.put("pub_date", new Date().toLocaleString());
