@@ -2,5 +2,10 @@
 <resources>
 
     <string name="app_name">随身记2</string>
-
+	
+	<string name="layout_add_title">请输入标题</string>
+	<string name="layout_add_content">请输入记录内容</string>
+	<string name="layout_add_back">返回</string>
+	<string name="layout_add_save">保存</string>
+	
 </resources>

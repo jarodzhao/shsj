@@ -28,8 +28,6 @@ public class MainActivity extends Activity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-		insertDate();
-
 		mainListView = (ListView) findViewById(R.id.mainListView1);
 
 		//Log.d("jarod", ddHelper.getDatabaseName());
@@ -51,7 +49,7 @@ public class MainActivity extends Activity implements OnClickListener
 			{
 				Map<String,Object> map = new HashMap<String, Object>();
 
-				map.put("title", cursor.getString(cursor.getColumnIndex("id")));
+				map.put("title", cursor.getString(cursor.getColumnIndex("title")));
 				map.put("content", cursor.getString(cursor.getColumnIndex("content")));
 				map.put("pub_date", cursor.getString(cursor.getColumnIndex("pub_date")));
 				list.add(map);
@@ -77,31 +75,6 @@ public class MainActivity extends Activity implements OnClickListener
 
     }
 
-	//生成测试数据
-	void insertDate()
-	{
-
-		DDHelper ddHelper = new DDHelper(this, null, 1);
-		SQLiteDatabase db = ddHelper.getWritableDatabase();
-
-		Note note;
-		ContentValues values;
-
-		for (int i=1;i < 2;i++)
-		{
-			note  = new Note();
-			values = new ContentValues();
-
-			values.put("id", note.getId().toString());
-			values.put("title", "abc #" + i);
-			values.put("content", "这里显示正文内容... #" + i);
-			values.put("pub_date", new Date().toLocaleString());
-
-			db.insert("t_note", null, values);
-		}
-
-		db.close();
-	}
 
 	@Override
 	public void onClick(View view)
@@ -125,7 +98,17 @@ public class MainActivity extends Activity implements OnClickListener
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId())
 		{
-			case R.id.add:
+			case R.id.menu_add:
+				Intent intent = new Intent(this, AddActivity.class);
+				startActivity(intent);
+				return true;
+			case R.id.menu_delete:
+				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+				return true;
+			case R.id.menu_setup:
+				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+				return true;
+			case R.id.menu_about:
 				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
 				return true;
 		}
