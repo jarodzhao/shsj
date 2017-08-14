@@ -108,7 +108,30 @@ public class MainActivity extends Activity implements OnClickListener
 	{
 		switch (view.getId())
 		{
-			
+
 		}
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.options_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		super.onOptionsItemSelected(item);
+		switch (item.getItemId())
+		{
+			case R.id.add:
+				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+				return true;
+		}
+
+		return false;
+	}
+
+
 }
