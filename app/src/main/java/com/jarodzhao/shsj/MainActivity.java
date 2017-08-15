@@ -30,38 +30,23 @@ public class MainActivity extends Activity implements OnClickListener
 
 		mainListView = (ListView) findViewById(R.id.mainListView1);
 
-		//Log.d("jarod", ddHelper.getDatabaseName());
-
 		DDHelper ddHelper = new DDHelper(this, null, 1);
 		SQLiteDatabase db = ddHelper.getWritableDatabase();
 
-		//db.execSQL("delete from t_note");
-
 		Cursor cursor = null;
 
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Note note;
+		List<Note> notes = new ArrayList<>();
 
 		try
 		{
 			cursor = db.rawQuery("select * from t_note order BY pub_date desc", null);
-
 			while (cursor.moveToNext())
 			{
-				Map<String,Object> map = new HashMap<String, Object>();
-
-				map.put("title", cursor.getString(cursor.getColumnIndex("title")));
-				map.put("content", cursor.getString(cursor.getColumnIndex("content")));
-				map.put("pub_date", cursor.getString(cursor.getColumnIndex("pub_date")));
-				list.add(map);
+				note = new Note(UUID.fromString(cursor.getString(cursor.getColumnIndex("id"))), cursor.getString(cursor.getColumnIndex("title")),
+								cursor.getString(cursor.getColumnIndex("content")), new Date());
+				notes.add(note);
 			}
-
-			SimpleAdapter sa = new SimpleAdapter(this, list,
-												 R.layout.layout_list_style,
-												 new String[]{"title","content","pub_date"},
-												 new int[]{R.id.text_title, R.id.text_content,R.id.text_date}
-												 );
-
-			mainListView.setAdapter(sa);
 		}
 		catch (Exception ex)
 		{
@@ -73,6 +58,10 @@ public class MainActivity extends Activity implements OnClickListener
 			db.close();
 		}
 
+		MyAdapter myAdapter = new MyAdapter(this, notes);
+		
+		mainListView.setAdapter(myAdapter);
+		
     }
 
 

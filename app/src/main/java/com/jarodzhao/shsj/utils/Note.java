@@ -14,6 +14,13 @@ public class Note
 	public Note(){
 		this.id = UUID.randomUUID();
 	}
+	
+	public Note(UUID id, String title, String content, Date pubDate){
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.pub_date = pubDate;
+	}
 
 	public UUID getId()
 	{
