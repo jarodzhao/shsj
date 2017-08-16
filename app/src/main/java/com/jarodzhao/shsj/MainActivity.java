@@ -14,6 +14,7 @@ import android.content.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.*;
+import java.text.*;
 
 public class MainActivity extends Activity implements OnClickListener
 {
@@ -22,6 +23,7 @@ public class MainActivity extends Activity implements OnClickListener
 	Button mainButton;
 	ListView mainListView;
 
+	List<Note> notes;
 	MyAdapter myAdapter;
 
     @Override
@@ -31,12 +33,12 @@ public class MainActivity extends Activity implements OnClickListener
 		setContentView(R.layout.main);
 
 		myAdapter = new MyAdapter(this, getNotes());
-		
+
 		mainListView = (ListView) findViewById(R.id.mainListView1);
 		mainListView.setAdapter(myAdapter);
 	}
 
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -44,12 +46,22 @@ public class MainActivity extends Activity implements OnClickListener
 		switch (resultCode)
 		{
 			case 1:
-				//Bundle bundle = data.getExtras();
+
+//				DDHelper ddHelper = new DDHelper(this, null, 1);
+//				SQLiteDatabase db = ddHelper.getWritableDatabase();
+//				db.execSQL("delete from t_note where title like 'abc%'");
+//				db.close();
+				
 				//Toast.makeText(this, "回来了😁！", Toast.LENGTH_SHORT).show();
 				break;
 			case 2:
-				myAdapter = new MyAdapter(this, getNotes());
-				mainListView.setAdapter(myAdapter);
+				//myAdapter = new MyAdapter(this, getNotes());
+				Note note = (Note) data.getSerializableExtra("new");
+				notes.add(note);
+
+				//Collections.sort(notes);
+				myAdapter.notifyDataSetChanged();
+
 				//Toast.makeText(this, "保存后返回...", Toast.LENGTH_SHORT).show();
 				break;
 		}
@@ -81,7 +93,7 @@ public class MainActivity extends Activity implements OnClickListener
 		switch (item.getItemId())
 		{
 			case R.id.menu_add:
-				//				菜单中的添加跳转
+				//菜单中的添加跳转
 				Intent intent = new Intent(this, AddActivity.class);
 				startActivityForResult(intent, 1);
 				//startActivity(intent);
@@ -98,7 +110,7 @@ public class MainActivity extends Activity implements OnClickListener
 		}
 
 		return false;
-		
+
 	}
 
 	List<Note> getNotes()
@@ -108,17 +120,21 @@ public class MainActivity extends Activity implements OnClickListener
 
 		DDHelper ddHelper = new DDHelper(this, null, 1);
 		SQLiteDatabase db = ddHelper.getWritableDatabase();
-		
+
 		Note note;
-		List<Note> notes = new ArrayList<>();
+		notes = new ArrayList<>();
 
 		try
 		{
 			cursor = db.rawQuery("select * from t_note order BY pub_date desc", null);
 			while (cursor.moveToNext())
 			{
-				note = new Note(UUID.fromString(cursor.getString(cursor.getColumnIndex("id"))), cursor.getString(cursor.getColumnIndex("title")),
-								cursor.getString(cursor.getColumnIndex("content")), new Date());
+//								Toast.makeText(this, cursor.getString(cursor.getColumnIndex("pub_date")), Toast.LENGTH_SHORT).show();
+				note = new Note(UUID.fromString(cursor.getString(cursor.getColumnIndex("id"))),
+								cursor.getString(cursor.getColumnIndex("title")),
+								cursor.getString(cursor.getColumnIndex("content")), 
+								new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
+								cursor.getString(cursor.getColumnIndex("pub_date"))));
 				notes.add(note);
 			}
 		}
@@ -131,6 +147,8 @@ public class MainActivity extends Activity implements OnClickListener
 			cursor.close();
 			db.close();
 		}
+
+		//Collections.sort(notes);
 
 		return notes;
 	}
