@@ -15,7 +15,8 @@
 			android:layout_width="match_parent"
 			android:text="Text"
 			android:id="@+id/text_title"
-			android:padding="4dp"/>
+			android:padding="4dp"
+			android:textColor="#797979"/>
 
 		<LinearLayout
 			android:layout_height="wrap_content"
@@ -28,7 +29,8 @@
 				android:text="Text"
 				android:id="@+id/text_content"
 				android:layout_weight="1.0"
-				android:padding="4dp"/>
+				android:padding="4dp"
+				android:textColor="#787878"/>
 
 		</LinearLayout>
 
@@ -37,7 +39,8 @@
 			android:layout_width="match_parent"
 			android:text="Text"
 			android:paddingLeft="20dp"
-			android:id="@+id/text_date"/>
+			android:id="@+id/text_date"
+			android:textColor="#777777"/>
 
 	</LinearLayout>
 

@@ -47,16 +47,19 @@ public class MyAdapter extends BaseAdapter
 
 		if (convertView == null)
 		{
-			view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.layout_list_style, null);
+			view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.layout_list_style, parent, false);
 
 			viewHolder = new ViewHolder();
 			viewHolder.textView_title = (TextView)view.findViewById(R.id.text_title);
 			viewHolder.textView_contend = (TextView)view.findViewById(R.id.text_content);
 			viewHolder.textView_date = (TextView)view.findViewById(R.id.text_date);
+			
+//			viewHolder.textView_title.setText(note.getTitle());
+//			viewHolder.textView_contend.setText(note.getContent());
+//			viewHolder.textView_date.setText(note.getPubDate().toLocaleString());
+			
 			view.setTag(viewHolder);
-		}
-		else
-		{
+		}else{
 			view = convertView;
 			viewHolder = (ViewHolder)view.getTag();
 		}
@@ -75,3 +78,8 @@ public class MyAdapter extends BaseAdapter
 		TextView textView_date;
 	}
 }
+
+
+	//holder =newViewHolder();
+   //     convertView = mInflater.inflate(R.layout.list_item,null);
+        
