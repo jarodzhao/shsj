@@ -8,7 +8,8 @@
 	<LinearLayout
 		android:layout_height="100dp"
 		android:layout_width="match_parent"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		android:padding="2dp">
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -16,23 +17,18 @@
 			android:text="Text"
 			android:id="@+id/text_title"
 			android:padding="4dp"
-			android:textColor="#797979"/>
+			android:textColor="#797979"
+			android:background="#FFFFFF"/>
 
-		<LinearLayout
-			android:layout_height="wrap_content"
+		<TextView
+			android:layout_height="60dp"
 			android:layout_width="match_parent"
-			android:orientation="horizontal">
-
-			<TextView
-				android:layout_height="50dp"
-				android:layout_width="wrap_content"
-				android:text="Text"
-				android:id="@+id/text_content"
-				android:layout_weight="1.0"
-				android:padding="4dp"
-				android:textColor="#787878"/>
-
-		</LinearLayout>
+			android:text="Text"
+			android:id="@+id/text_content"
+			android:layout_weight="1.0"
+			android:padding="4dp"
+			android:textColor="#787878"
+			android:background="#FFFFFF"/>
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -40,7 +36,8 @@
 			android:text="Text"
 			android:paddingLeft="20dp"
 			android:id="@+id/text_date"
-			android:textColor="#777777"/>
+			android:textColor="#777777"
+			android:background="#FFFFFF"/>
 
 	</LinearLayout>
 
