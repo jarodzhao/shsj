@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements OnClickListener
 
 //				DDHelper ddHelper = new DDHelper(this, null, 1);
 //				SQLiteDatabase db = ddHelper.getWritableDatabase();
-//				db.execSQL("delete from t_note where title like 'abc%'");
+//				db.execSQL("delete from t_note where pub_date like '%17:32%'");
 //				db.close();
 				
 				//Toast.makeText(this, "回来了😁！", Toast.LENGTH_SHORT).show();
@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements OnClickListener
 				startActivityForResult(intent, 1);
 				//startActivity(intent);
 				return true;
-			case R.id.menu_delete:
+			case R.id.menu_search:
 				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
 				return true;
 			case R.id.menu_setup:
@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements OnClickListener
 
 		try
 		{
-			cursor = db.rawQuery("select * from t_note order BY pub_date desc", null);
+			cursor = db.rawQuery("select * from t_note order BY pub_date", null);
 			while (cursor.moveToNext())
 			{
 //								Toast.makeText(this, cursor.getString(cursor.getColumnIndex("pub_date")), Toast.LENGTH_SHORT).show();

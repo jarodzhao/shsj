@@ -35,7 +35,8 @@
 		</activity>
 
 		<activity
-			android:name=".AddActivity"/>
+			android:name=".AddActivity"
+			android:label="@string/add_name"/>
 
 	</application>
 

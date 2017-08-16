@@ -21,8 +21,8 @@ public final class R {
         public static final int editText_title=0x7f070000;
         public static final int mainListView1=0x7f070007;
         public static final int menu_about=0x7f07000b;
-        public static final int menu_add=0x7f070008;
-        public static final int menu_delete=0x7f070009;
+        public static final int menu_add=0x7f070009;
+        public static final int menu_search=0x7f070008;
         public static final int menu_setup=0x7f07000a;
         public static final int text_content=0x7f070005;
         public static final int text_date=0x7f070006;
@@ -37,11 +37,12 @@ public final class R {
         public static final int options_menu=0x7f060000;
     }
     public static final class string {
+        public static final int add_name=0x7f040001;
         public static final int app_name=0x7f040000;
-        public static final int layout_add_back=0x7f040003;
-        public static final int layout_add_content=0x7f040002;
-        public static final int layout_add_save=0x7f040004;
-        public static final int layout_add_title=0x7f040001;
+        public static final int layout_add_back=0x7f040004;
+        public static final int layout_add_content=0x7f040003;
+        public static final int layout_add_save=0x7f040005;
+        public static final int layout_add_title=0x7f040002;
     }
     public static final class style {
         public static final int AppTheme=0x7f050000;
