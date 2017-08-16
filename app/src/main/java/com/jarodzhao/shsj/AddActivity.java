@@ -9,6 +9,7 @@ import android.view.*;
 import com.jarodzhao.shsj.utils.*;
 
 import java.util.*;
+import android.content.*;
 //import android.provider.*;
 
 public class AddActivity extends Activity implements OnClickListener
@@ -45,10 +46,13 @@ public class AddActivity extends Activity implements OnClickListener
 		switch (view.getId())
 		{
 			case R.id.button_back:
+//				Intent Intent = new Intent();
+				setResult(1);
 				finish();
 				break;
 			case R.id.button_save:
 				save();
+				setResult(2);
 				finish();
 				break;
 		}

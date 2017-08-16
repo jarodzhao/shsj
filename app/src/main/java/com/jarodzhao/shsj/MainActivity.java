@@ -22,47 +22,40 @@ public class MainActivity extends Activity implements OnClickListener
 	Button mainButton;
 	ListView mainListView;
 
+	MyAdapter myAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 
+		myAdapter = new MyAdapter(this, getNotes());
+		
 		mainListView = (ListView) findViewById(R.id.mainListView1);
-
-		DDHelper ddHelper = new DDHelper(this, null, 1);
-		SQLiteDatabase db = ddHelper.getWritableDatabase();
-
-		Cursor cursor = null;
-
-		Note note;
-		List<Note> notes = new ArrayList<>();
-
-		try
-		{
-			cursor = db.rawQuery("select * from t_note order BY pub_date desc", null);
-			while (cursor.moveToNext())
-			{
-				note = new Note(UUID.fromString(cursor.getString(cursor.getColumnIndex("id"))), cursor.getString(cursor.getColumnIndex("title")),
-								cursor.getString(cursor.getColumnIndex("content")), new Date());
-				notes.add(note);
-			}
-		}
-		catch (Exception ex)
-		{
-			Log.d("jarod", ex.toString());
-		}
-		finally
-		{
-			cursor.close();
-			db.close();
-		}
-
-		MyAdapter myAdapter = new MyAdapter(this, notes);
-		
 		mainListView.setAdapter(myAdapter);
-		
-    }
+	}
+
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		// 取消后后，返回主界面
+		switch (resultCode)
+		{
+			case 1:
+				//Bundle bundle = data.getExtras();
+				//Toast.makeText(this, "回来了😁！", Toast.LENGTH_SHORT).show();
+				break;
+			case 2:
+				myAdapter = new MyAdapter(this, getNotes());
+				mainListView.setAdapter(myAdapter);
+				//Toast.makeText(this, "保存后返回...", Toast.LENGTH_SHORT).show();
+				break;
+		}
+	}
+
+
 
 
 	@Override
@@ -88,8 +81,10 @@ public class MainActivity extends Activity implements OnClickListener
 		switch (item.getItemId())
 		{
 			case R.id.menu_add:
+				//				菜单中的添加跳转
 				Intent intent = new Intent(this, AddActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, 1);
+				//startActivity(intent);
 				return true;
 			case R.id.menu_delete:
 				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -103,6 +98,41 @@ public class MainActivity extends Activity implements OnClickListener
 		}
 
 		return false;
+		
+	}
+
+	List<Note> getNotes()
+	{
+
+		Cursor cursor = null;
+
+		DDHelper ddHelper = new DDHelper(this, null, 1);
+		SQLiteDatabase db = ddHelper.getWritableDatabase();
+		
+		Note note;
+		List<Note> notes = new ArrayList<>();
+
+		try
+		{
+			cursor = db.rawQuery("select * from t_note order BY pub_date desc", null);
+			while (cursor.moveToNext())
+			{
+				note = new Note(UUID.fromString(cursor.getString(cursor.getColumnIndex("id"))), cursor.getString(cursor.getColumnIndex("title")),
+								cursor.getString(cursor.getColumnIndex("content")), new Date());
+				notes.add(note);
+			}
+		}
+		catch (Exception ex)
+		{
+			Log.d("jarod", ex.toString());
+		}
+		finally
+		{
+			cursor.close();
+			db.close();
+		}
+
+		return notes;
 	}
 
 
