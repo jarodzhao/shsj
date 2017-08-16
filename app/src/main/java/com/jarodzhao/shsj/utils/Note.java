@@ -1,8 +1,12 @@
 package com.jarodzhao.shsj.utils;
 import java.util.*;
+import java.io.*;
 
-public class Note
+public class Note implements Serializable,Comparable<Note>
 {
+	
+	private Integer order;
+	
 	private UUID id;
 
 	private String title;
@@ -55,5 +59,20 @@ public class Note
 	public Date getPubDate()
 	{
 		return pub_date;
+	}
+	
+	public Integer getOrder(){
+		return order;
+	}
+	
+	public void setOrder(Integer order){
+		this.order = order;
+	}
+	
+	@Override
+	public int compareTo(Note note)
+	{
+		// TODO: Implement this method
+		return this.getOrder().compareTo(note.getOrder());
 	}
 }

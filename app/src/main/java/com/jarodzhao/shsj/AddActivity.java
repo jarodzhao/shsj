@@ -51,15 +51,19 @@ public class AddActivity extends Activity implements OnClickListener
 				finish();
 				break;
 			case R.id.button_save:
-				save();
-				setResult(2);
+				Note note = save();
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("new",note);
+				Intent intent = new Intent();
+				intent.putExtras(bundle);
+				setResult(2, intent);
 				finish();
 				break;
 		}
 	}
 
 
-	void save()
+	Note save()
 	{
 		note = new Note();
 		note.setTitle(editText_title.getText().toString().trim());
@@ -68,5 +72,7 @@ public class AddActivity extends Activity implements OnClickListener
 
 		NoteService ns = new NoteService();
 		ns.saveNote(this, note);
+		
+		return note;
 	}
 }
