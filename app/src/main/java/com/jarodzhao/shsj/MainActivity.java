@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		myAdapter = new MyAdapter(this, getNotes());
+		myAdapter = new MyAdapter(this, getNotes(null));
 
 		mainListView = (ListView) findViewById(R.id.mainListView1);
 		mainListView.setAdapter(myAdapter);
@@ -42,27 +42,32 @@ public class MainActivity extends Activity implements OnClickListener
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		// 取消后后，返回主界面
+		// 返回主界面
 		switch (resultCode)
 		{
-			case 1:
+			case 1:		//取消保存
 
-				DDHelper ddHelper = new DDHelper(this, null, 1);
-				SQLiteDatabase db = ddHelper.getWritableDatabase();
-				db.execSQL("delete from t_note where pub_date like '%15 16%'");
-				db.close();
-				
-				//Toast.makeText(this, "回来了😁！", Toast.LENGTH_SHORT).show();
+//				DDHelper ddHelper = new DDHelper(this, null, 1);
+//				SQLiteDatabase db = ddHelper.getWritableDatabase();
+//				db.execSQL("delete from t_note where pub_date like '%15 16%'");
+//				db.close();
+
 				break;
-			case 2:
-				//myAdapter = new MyAdapter(this, getNotes());
+			case 2: 	//保存后
+
 				Note note = (Note) data.getSerializableExtra("new");
 				notes.add(note);
 
-				//Collections.sort(notes);
 				myAdapter.notifyDataSetChanged();
 
-				//Toast.makeText(this, "保存后返回...", Toast.LENGTH_SHORT).show();
+				break;
+			case 3:	//搜索提交
+				String keyword = data.getStringExtra("keyword");
+				
+				myAdapter = new MyAdapter(MainActivity.this, getNotes(keyword));
+				mainListView = (ListView) findViewById(R.id.mainListView1);
+				
+				mainListView.setAdapter(myAdapter);
 				break;
 		}
 	}
@@ -90,17 +95,18 @@ public class MainActivity extends Activity implements OnClickListener
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		super.onOptionsItemSelected(item);
+		Intent intent;
 		switch (item.getItemId())
 		{
 			case R.id.menu_add:
-				//菜单中的添加跳转
-				Intent intent = new Intent(this, AddActivity.class);
+				//菜单中的添加
+				intent = new Intent(this, AddActivity.class);
 				startActivityForResult(intent, 1);
-				//startActivity(intent);
 				return true;
 			case R.id.menu_search:
-				Intent intent2 = new Intent(this,SearchActivity.class);
-				startActivity(intent2);
+				//菜单中的查找
+				intent = new Intent(this, SearchActivity.class);
+				startActivityForResult(intent, 1);
 				return true;
 			case R.id.menu_setup:
 				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -114,7 +120,7 @@ public class MainActivity extends Activity implements OnClickListener
 
 	}
 
-	List<Note> getNotes()
+	List<Note> getNotes(String keyword)
 	{
 
 		Cursor cursor = null;
@@ -124,18 +130,24 @@ public class MainActivity extends Activity implements OnClickListener
 
 		Note note;
 		notes = new ArrayList<>();
+		StringBuffer strsql = new StringBuffer("select * from t_note ");
 
+		if(keyword != null && keyword != "")
+			strsql.append(" where title like '%" + keyword +"%' or content like '%" + keyword +"%'");
+			
+		strsql.append(" order BY pub_date desc");
+		
 		try
 		{
-			cursor = db.rawQuery("select * from t_note order BY pub_date desc", null);
+			cursor = db.rawQuery(strsql.toString(), null);
 			while (cursor.moveToNext())
 			{
-//								Toast.makeText(this, cursor.getString(cursor.getColumnIndex("pub_date")), Toast.LENGTH_SHORT).show();
+
 				note = new Note(UUID.fromString(cursor.getString(cursor.getColumnIndex("id"))),
 								cursor.getString(cursor.getColumnIndex("title")),
 								cursor.getString(cursor.getColumnIndex("content")), 
 								new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
-								cursor.getString(cursor.getColumnIndex("pub_date"))));
+									cursor.getString(cursor.getColumnIndex("pub_date"))));
 				notes.add(note);
 			}
 		}
