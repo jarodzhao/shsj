@@ -47,10 +47,10 @@ public class MainActivity extends Activity implements OnClickListener
 		{
 			case 1:
 
-//				DDHelper ddHelper = new DDHelper(this, null, 1);
-//				SQLiteDatabase db = ddHelper.getWritableDatabase();
-//				db.execSQL("delete from t_note where pub_date like '%17:32%'");
-//				db.close();
+				DDHelper ddHelper = new DDHelper(this, null, 1);
+				SQLiteDatabase db = ddHelper.getWritableDatabase();
+				db.execSQL("delete from t_note where pub_date like '%15 16%'");
+				db.close();
 				
 				//Toast.makeText(this, "回来了😁！", Toast.LENGTH_SHORT).show();
 				break;
@@ -99,7 +99,8 @@ public class MainActivity extends Activity implements OnClickListener
 				//startActivity(intent);
 				return true;
 			case R.id.menu_search:
-				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+				Intent intent2 = new Intent(this,SearchActivity.class);
+				startActivity(intent2);
 				return true;
 			case R.id.menu_setup:
 				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -126,7 +127,7 @@ public class MainActivity extends Activity implements OnClickListener
 
 		try
 		{
-			cursor = db.rawQuery("select * from t_note order BY pub_date", null);
+			cursor = db.rawQuery("select * from t_note order BY pub_date desc", null);
 			while (cursor.moveToNext())
 			{
 //								Toast.makeText(this, cursor.getString(cursor.getColumnIndex("pub_date")), Toast.LENGTH_SHORT).show();

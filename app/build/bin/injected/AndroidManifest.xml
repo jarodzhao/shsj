@@ -38,6 +38,10 @@
 			android:name=".AddActivity"
 			android:label="@string/add_name"/>
 
+		<activity
+			android:name=".SearchActivity"
+			android:theme="@style/translucent"/>
+
 	</application>
 
 </manifest>

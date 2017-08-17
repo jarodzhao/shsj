@@ -68,7 +68,7 @@ public class MyAdapter extends BaseAdapter
 		viewHolder.textView_title.setText(note.getTitle());
 		viewHolder.textView_contend.setText(note.getContent());
 		viewHolder.textView_date.setText(
-		new SimpleDateFormat("M-dd H:mm").format(note.getPubDate()));
+		new SimpleDateFormat("M-dd HH:mm").format(note.getPubDate()));
 
 		return view;
 	}
