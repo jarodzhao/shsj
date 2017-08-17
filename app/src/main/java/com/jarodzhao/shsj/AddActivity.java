@@ -35,7 +35,7 @@ public class AddActivity extends Activity implements OnClickListener
 		editText_title = (EditText) findViewById(R.id.editText_title);
 		editText_content = (EditText) findViewById(R.id.editText_content);
 
-		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 
@@ -50,13 +50,14 @@ public class AddActivity extends Activity implements OnClickListener
 				finish();
 				break;
 			case R.id.button_save:
-				if(editText_title.getText().toString().length()<1 || editText_content.getText().toString().length()<1){
+				if (editText_title.getText().toString().length() < 1 || editText_content.getText().toString().length() < 1)
+				{
 					Toast.makeText(this, "请输入要保存的内容", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				Note note = save();
 				Bundle bundle = new Bundle();
-				bundle.putSerializable("new",note);
+				bundle.putSerializable("new", note);
 				Intent intent = new Intent();
 				intent.putExtras(bundle);
 				setResult(2, intent);
@@ -65,6 +66,18 @@ public class AddActivity extends Activity implements OnClickListener
 		}
 	}
 
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item)
+	{
+        switch (item.getItemId())
+		{
+            case android.R.id.home:
+                UIHelper.returnHome(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+	
 
 	Note save()
 	{
@@ -75,7 +88,7 @@ public class AddActivity extends Activity implements OnClickListener
 
 		NoteService ns = new NoteService();
 		ns.saveNote(this, note);
-		
+
 		return note;
 	}
 }

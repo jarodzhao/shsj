@@ -15,6 +15,8 @@ public class SearchActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_search);
 
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		final EditText editText_keyword = (EditText) findViewById(R.id.editText_keyword);
 		
 //		editText_keyword.setFocusable(true);
