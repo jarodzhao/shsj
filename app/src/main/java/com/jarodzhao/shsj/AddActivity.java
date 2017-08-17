@@ -71,6 +71,7 @@ public class AddActivity extends Activity implements OnClickListener
 	{
         switch (item.getItemId())
 		{
+			//导航键返回 home
             case android.R.id.home:
                 UIHelper.returnHome(this);
                 return true;

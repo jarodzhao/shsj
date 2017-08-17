@@ -5,6 +5,7 @@ import android.widget.*;
 import android.view.*;
 import android.content.*;
 import android.view.inputmethod.*;
+import com.jarodzhao.shsj.utils.*;
 
 public class SearchActivity extends Activity
 {
@@ -16,16 +17,9 @@ public class SearchActivity extends Activity
 		setContentView(R.layout.layout_search);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		final EditText editText_keyword = (EditText) findViewById(R.id.editText_keyword);
-		
-//		editText_keyword.setFocusable(true);
-//		editText_keyword.setFocusableInTouchMode(true);
-//		InputMethodManager inputManager =(InputMethodManager) editText_keyword.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//		inputManager.setInputMethod(editText_keyword, 0);
-//		
-		editText_keyword.requestFocus();
-		
+
 		editText_keyword.setOnKeyListener(new View.OnKeyListener(){
 
 				@Override
@@ -36,7 +30,7 @@ public class SearchActivity extends Activity
 					{
 						// 返回主界面关键字
 						String keyword = editText_keyword.getText().toString();
-						
+
 						Bundle bundle = new Bundle();
 						bundle.putString("keyword", keyword);
 						Intent intent = new Intent();
@@ -50,5 +44,19 @@ public class SearchActivity extends Activity
 
 			});
 	}
+
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item)
+	{
+        switch (item.getItemId())
+		{
+				//导航键返回 home
+            case android.R.id.home:
+                UIHelper.returnHome(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

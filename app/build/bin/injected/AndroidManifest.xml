@@ -36,14 +36,12 @@
 
 		<activity
 			android:name=".AddActivity"
-			android:label="@string/add_name"
-			android:parentActivityName=".MainActivity"/>
+			android:label="@string/add_name"/>
 
 		<activity
 			android:name=".SearchActivity"
 			android:theme="@style/translucent"
-			android:windowSoftInputMode="adjustResize"
-			android:parentActivityName=".MainActivity"/>
+			android:windowSoftInputMode="adjustResize"/>
 
 	</application>
 
