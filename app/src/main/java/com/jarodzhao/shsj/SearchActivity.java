@@ -22,7 +22,7 @@ public class SearchActivity extends Activity
 //		InputMethodManager inputManager =(InputMethodManager) editText_keyword.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 //		inputManager.setInputMethod(editText_keyword, 0);
 //		
-//		editText_keyword.requestFocus();
+		editText_keyword.requestFocus();
 		
 		editText_keyword.setOnKeyListener(new View.OnKeyListener(){
 

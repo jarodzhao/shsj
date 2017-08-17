@@ -17,8 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name=".AddActivity" android:label="@string/add_name"></activity>
-		<activity android:name=".SearchActivity" android:theme="@style/translucent" />
+		<activity android:name=".AddActivity" android:label="@string/add_name" />
+		<activity android:name=".SearchActivity" android:theme="@style/translucent" 
+			android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

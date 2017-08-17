@@ -40,7 +40,8 @@
 
 		<activity
 			android:name=".SearchActivity"
-			android:theme="@style/translucent"/>
+			android:theme="@style/translucent"
+			android:windowSoftInputMode="adjustResize"/>
 
 	</application>
 
