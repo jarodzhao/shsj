@@ -11,12 +11,10 @@ import android.database.sqlite.*;
 import android.database.*;
 import android.content.*;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.*;
 import java.text.*;
 
-public class MainActivity extends Activity
+public class MainActivity extends ListActivity
 {
 	TextView mainTextView;
 	EditText mainEditText;
@@ -31,12 +29,10 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-
+		
+		getListView().setDividerHeight(0);
 		myAdapter = new MyAdapter(this, getNotes(null));
-
-		mainListView = (ListView) findViewById(R.id.mainListView1);
-		mainListView.setAdapter(myAdapter);
+		setListAdapter(myAdapter);
 	}
 
 
@@ -47,6 +43,7 @@ public class MainActivity extends Activity
 		switch (resultCode)
 		{
 			case 1:		//取消保存
+//				执行 SQL 语句
 //				DDHelper ddHelper = new DDHelper(this, null, 1);
 //				SQLiteDatabase db = ddHelper.getWritableDatabase();
 //				db.execSQL("delete from t_note where pub_date like '%15 16%'");
@@ -64,9 +61,8 @@ public class MainActivity extends Activity
 				keyword = data.getStringExtra("keyword");
 
 				myAdapter = new MyAdapter(MainActivity.this, getNotes(keyword));
-				mainListView = (ListView) findViewById(R.id.mainListView1);
 
-				mainListView.setAdapter(myAdapter);
+				setListAdapter(myAdapter);
 				break;
 		}
 	}
@@ -150,8 +146,6 @@ public class MainActivity extends Activity
 			cursor.close();
 			db.close();
 		}
-
-		//Collections.sort(notes);
 
 		return notes;
 	}
