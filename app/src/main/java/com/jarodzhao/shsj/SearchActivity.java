@@ -16,9 +16,24 @@ public class SearchActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_search);
 
+		//显示导航按钮
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		String keyword = null;
 
+		try
+		{
+			keyword = getIntent().getExtras().getString("keyword");
+		}
+		catch (Exception e)
+		{}
+		
 		final EditText editText_keyword = (EditText) findViewById(R.id.editText_keyword);
+
+		if (keyword != null && keyword != "")
+		{
+			editText_keyword.setText(keyword);
+			editText_keyword.setSelection(keyword.length());
+		}
 
 		editText_keyword.setOnKeyListener(new View.OnKeyListener(){
 

@@ -25,6 +25,7 @@ public class MainActivity extends Activity implements OnClickListener
 
 	List<Note> notes;
 	MyAdapter myAdapter;
+	String keyword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,27 +47,25 @@ public class MainActivity extends Activity implements OnClickListener
 		switch (resultCode)
 		{
 			case 1:		//取消保存
-
 //				DDHelper ddHelper = new DDHelper(this, null, 1);
 //				SQLiteDatabase db = ddHelper.getWritableDatabase();
 //				db.execSQL("delete from t_note where pub_date like '%15 16%'");
 //				db.close();
-
 				break;
-			case 2: 	//保存后
 
+			case 2: 	//保存后
 				Note note = (Note) data.getSerializableExtra("new");
 				notes.add(note);
 
 				myAdapter.notifyDataSetChanged();
-
 				break;
+
 			case 3:	//搜索提交
-				String keyword = data.getStringExtra("keyword");
-				
+				keyword = data.getStringExtra("keyword");
+
 				myAdapter = new MyAdapter(MainActivity.this, getNotes(keyword));
 				mainListView = (ListView) findViewById(R.id.mainListView1);
-				
+
 				mainListView.setAdapter(myAdapter);
 				break;
 		}
@@ -106,6 +105,8 @@ public class MainActivity extends Activity implements OnClickListener
 			case R.id.menu_search:
 				//菜单中的查找
 				intent = new Intent(this, SearchActivity.class);
+				if (keyword != null && keyword != "")
+					intent.putExtra("keyword", keyword);
 				startActivityForResult(intent, 1);
 				return true;
 			case R.id.menu_setup:
@@ -132,11 +133,11 @@ public class MainActivity extends Activity implements OnClickListener
 		notes = new ArrayList<>();
 		StringBuffer strsql = new StringBuffer("select * from t_note ");
 
-		if(keyword != null && keyword != "")
-			strsql.append(" where title like '%" + keyword +"%' or content like '%" + keyword +"%'");
-			
+		if (keyword != null && keyword != "")
+			strsql.append(" where title like '%" + keyword + "%' or content like '%" + keyword + "%'");
+
 		strsql.append(" order BY pub_date desc");
-		
+
 		try
 		{
 			cursor = db.rawQuery(strsql.toString(), null);

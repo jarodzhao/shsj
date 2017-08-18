@@ -3,13 +3,14 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:orientation="vertical">
+	android:orientation="vertical"
+	android:background="#EBEBEB">
 
 	<LinearLayout
 		android:layout_height="120dp"
 		android:layout_width="match_parent"
 		android:orientation="vertical"
-		android:padding="3dp">
+		android:padding="4dp">
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -37,15 +38,30 @@
 			android:lines="3"
 			android:layout_height="wrap_content"/>
 
-		<TextView
+		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:text="Text"
-			android:paddingRight="20dp"
-			android:id="@+id/text_date"
-			android:textColor="#777777"
-			android:background="#FFFFFF"
-			android:gravity="right"/>
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:background="#FFFFFF">
+
+			<ImageView
+				android:layout_height="25dp"
+				android:layout_width="25dp"
+				android:src="@drawable/ic_launcher"
+				android:layout_marginLeft="10dp"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Text"
+				android:paddingRight="20dp"
+				android:id="@+id/text_date"
+				android:textColor="#777777"
+				android:gravity="right"
+				android:layout_weight="1.0"/>
+
+		</LinearLayout>
 
 	</LinearLayout>
 
