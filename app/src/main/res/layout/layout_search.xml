@@ -17,6 +17,7 @@
 		android:padding="10dp"
 		android:textColorHint="#757575"
 		android:singleLine="true"
+		android:imeOptions="actionSearch"
 		android:id="@+id/editText_keyword"/>
 
 </LinearLayout>
