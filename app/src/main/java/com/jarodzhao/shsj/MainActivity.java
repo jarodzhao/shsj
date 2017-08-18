@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.*;
 import java.text.*;
 
-public class MainActivity extends Activity implements OnClickListener
+public class MainActivity extends Activity
 {
 	TextView mainTextView;
 	EditText mainEditText;
@@ -71,17 +71,6 @@ public class MainActivity extends Activity implements OnClickListener
 		}
 	}
 
-
-
-
-	@Override
-	public void onClick(View view)
-	{
-		switch (view.getId())
-		{
-
-		}
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
