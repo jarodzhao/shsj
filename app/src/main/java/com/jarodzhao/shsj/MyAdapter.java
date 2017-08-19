@@ -54,10 +54,8 @@ public class MyAdapter extends BaseAdapter
 			viewHolder.textView_title = (TextView)view.findViewById(R.id.text_title);
 			viewHolder.textView_contend = (TextView)view.findViewById(R.id.text_content);
 			viewHolder.textView_date = (TextView)view.findViewById(R.id.text_date);
-			
-//			viewHolder.textView_title.setText(note.getTitle());
-//			viewHolder.textView_contend.setText(note.getContent());
-//			viewHolder.textView_date.setText(note.getPubDate().toLocaleString());
+			viewHolder.textview_type = (TextView)view.findViewById(R.id.text_type);
+			viewHolder.textview_favoried = (TextView) view.findViewById(R.id.text_favoried);
 			
 			view.setTag(viewHolder);
 		}else{
@@ -69,6 +67,8 @@ public class MyAdapter extends BaseAdapter
 		viewHolder.textView_contend.setText(note.getContent());
 		viewHolder.textView_date.setText(
 		new SimpleDateFormat("M-dd HH:mm").format(note.getPubDate()));
+		viewHolder.textview_type.setText("分类");
+		viewHolder.textview_favoried.setText("收藏");
 
 		return view;
 	}
@@ -78,6 +78,9 @@ public class MyAdapter extends BaseAdapter
 		TextView textView_title;
 		TextView textView_contend;
 		TextView textView_date;
+		TextView textview_type;
+		TextView textview_favoried;
+		
 	}
 }
 

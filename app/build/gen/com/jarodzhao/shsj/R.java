@@ -22,22 +22,26 @@ public final class R {
         public static final int button_back=0x7f080002;
         public static final int button_save=0x7f080003;
         public static final int editText_content=0x7f080001;
-        public static final int editText_keyword=0x7f080007;
+        public static final int editText_keyword=0x7f08000c;
         public static final int editText_title=0x7f080000;
-        public static final int mainListView1=0x7f080008;
-        public static final int menu_about=0x7f08000c;
-        public static final int menu_add=0x7f08000a;
-        public static final int menu_search=0x7f080009;
-        public static final int menu_setup=0x7f08000b;
-        public static final int text_content=0x7f080005;
-        public static final int text_date=0x7f080006;
-        public static final int text_title=0x7f080004;
+        public static final int main_checkbox_favorited=0x7f080006;
+        public static final int main_text_content=0x7f080005;
+        public static final int main_text_title=0x7f080004;
+        public static final int menu_about=0x7f080010;
+        public static final int menu_add=0x7f08000e;
+        public static final int menu_search=0x7f08000d;
+        public static final int menu_setup=0x7f08000f;
+        public static final int text_content=0x7f080008;
+        public static final int text_date=0x7f08000b;
+        public static final int text_favoried=0x7f08000a;
+        public static final int text_title=0x7f080007;
+        public static final int text_type=0x7f080009;
     }
     public static final class layout {
         public static final int layout_add=0x7f030000;
-        public static final int layout_list_style=0x7f030001;
-        public static final int layout_search=0x7f030002;
-        public static final int main=0x7f030003;
+        public static final int layout_content=0x7f030001;
+        public static final int layout_list_style=0x7f030002;
+        public static final int layout_search=0x7f030003;
     }
     public static final class menu {
         public static final int options_menu=0x7f070000;

@@ -13,9 +13,18 @@ import android.content.*;
 
 import java.util.*;
 import java.text.*;
+import android.widget.AdapterView.*;
 
-public class MainActivity extends ListActivity
+public class MainActivity extends ListActivity implements OnTouchListener
 {
+
+	@Override
+	public boolean onTouch(View view, MotionEvent event)
+	{
+		Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+		return false;
+	}
+
 	TextView mainTextView;
 	EditText mainEditText;
 	Button mainButton;
@@ -29,10 +38,20 @@ public class MainActivity extends ListActivity
     protected void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
-		
+
 		getListView().setDividerHeight(0);
 		myAdapter = new MyAdapter(this, getNotes(null));
 		setListAdapter(myAdapter);
+		
+		getListView().setOnItemClickListener(new OnItemClickListener(){
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+				{
+					Intent intent = new Intent(MainActivity.this, ContentActivity.class);
+					startActivity(intent);
+				}
+		});
 	}
 
 
@@ -66,6 +85,8 @@ public class MainActivity extends ListActivity
 				break;
 		}
 	}
+	
+	
 
 
 	@Override
@@ -149,6 +170,10 @@ public class MainActivity extends ListActivity
 
 		return notes;
 	}
+
+
+
+
 
 
 }
