@@ -84,7 +84,3 @@ public class MyAdapter extends BaseAdapter
 	}
 }
 
-
-	//holder =newViewHolder();
-   //     convertView = mInflater.inflate(R.layout.list_item,null);
-        

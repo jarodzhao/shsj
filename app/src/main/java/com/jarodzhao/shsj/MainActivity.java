@@ -42,16 +42,33 @@ public class MainActivity extends ListActivity implements OnTouchListener
 		getListView().setDividerHeight(0);
 		myAdapter = new MyAdapter(this, getNotes(null));
 		setListAdapter(myAdapter);
-		
+
 		getListView().setOnItemClickListener(new OnItemClickListener(){
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 				{
+					
+					Note note = new Note();
+					String title = (String) ((TextView) view.findViewById(R.id.text_title)).getText();
+					String content = (String) ((TextView) view.findViewById(R.id.text_content)).getText();
+					String pubDate = (String)((TextView) view.findViewById(R.id.text_date)).getText();
+					note.setTitle(title);
+					note.setContent(content);
+					try{
+					note.setPubDate(new SimpleDateFormat("M-dd HH:mm").parse(pubDate));
+					}catch(Exception e){}
+					
+					
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("note",note);
+					
 					Intent intent = new Intent(MainActivity.this, ContentActivity.class);
+					
+					intent.putExtras(bundle);
 					startActivity(intent);
 				}
-		});
+			});
 	}
 
 
@@ -85,8 +102,8 @@ public class MainActivity extends ListActivity implements OnTouchListener
 				break;
 		}
 	}
-	
-	
+
+
 
 
 	@Override
