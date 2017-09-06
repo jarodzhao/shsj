@@ -9,14 +9,13 @@ import android.icu.text.*;
 import android.view.*;
 import android.view.inputmethod.*;
 import android.util.*;
+import java.util.*;
 
 public class ContentActivity extends Activity
 {
-	TextView main_text_title;
-	TextView main_text_content;
-	EditText main_edit_title;
-	TextView main_edit_content;
-
+	TextView content_text_title;
+	TextView content_text_content;
+	CheckBox content_check_favorited;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -30,23 +29,35 @@ public class ContentActivity extends Activity
 		Intent intent = getIntent();
 		Note note = (Note)intent.getSerializableExtra("note");
 
-		main_text_title = (TextView) findViewById(R.id.main_text_title);
-		main_edit_title = (EditText) findViewById(R.id.main_edit_title);
+		content_text_title = (TextView) findViewById(R.id.content_text_title);
+		content_text_content = (TextView) findViewById(R.id.content_text_content);
 
-		main_text_content = (TextView) findViewById(R.id.main_text_content);
-		main_edit_content = (EditText) findViewById(R.id.main_edit_content);
+		TextView content_text_pub_date = (TextView) findViewById(R.id.content_text_pub_date);
 
-		TextView main_text_pub_date = (TextView) findViewById(R.id.main_text_pub_date);
-
-		main_text_title.setText(note.getTitle());
-		main_text_content.setText(note.getContent());
-
-		main_edit_title.setText(note.getTitle());
-		main_edit_content.setText(note.getContent());
+		content_text_title.setText(note.getTitle());
+		content_text_content.setText(note.getContent());
 
 		SimpleDateFormat sdf = new SimpleDateFormat("M-dd HH:mm");
-		main_text_pub_date.setText(sdf.format(note.getPubDate()));
+		content_text_pub_date.setText(sdf.format(note.getPubDate()));
 
+		content_check_favorited = (CheckBox) findViewById(R.id.content_checkbox_favorited);
+
+		//进入详情视图，是否收藏处理
+		if (("1").equals(note.getFavorited()))
+			content_check_favorited.setChecked(true);
+		else
+			content_check_favorited.setChecked(false);
+
+//		setTitle(note.getFavorited());
+//		catch (Exception e)
+//		{
+//			System.out.println(e.toString());
+//			Toast.makeText(this, e.toString(),Toast.LENGTH_SHORT).show();
+//		}
+		
+		//NoteService ns = new NoteService();
+		//List<String> result = ns.getAllFavorited(this);
+		//Log.d("jar",result.toString());
 	}
 
 	@Override
@@ -63,19 +74,12 @@ public class ContentActivity extends Activity
 	{
         switch (item.getItemId())
 		{
-				//导航键返回 home
+			//导航键返回 home
             case android.R.id.home:
                 UIHelper.returnHome(this);
                 return true;
-
-			case R.id.content_item_edit:
-				//Toast.makeText(this, "hi", Toast.LENGTH_SHORT).show();
-				main_text_title.setVisibility(View.GONE);
-				main_edit_title.setVisibility(View.VISIBLE);
-				
-				
-				main_text_content.setVisibility(View.GONE);
-				main_edit_content.setVisibility(View.VISIBLE);
+			case R.id.content_item_save:
+				Toast.makeText(this, "==", Toast.LENGTH_SHORT).show();
 				break;
         }
         return super.onOptionsItemSelected(item);

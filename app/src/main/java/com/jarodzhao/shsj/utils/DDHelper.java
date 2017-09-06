@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 public class DDHelper extends SQLiteOpenHelper
 {
 	final static private String db_name = "shsj.db3";
-	final private String CREATE_TABLE_SQL = "create table IF NOT EXISTS t_note (id , title , content, pub_date)";
+	final private String CREATE_TABLE_SQL = "create table IF NOT EXISTS t_note (id , title , content, pub_date, favorited)";
 
 
 	public DDHelper(Context context, CursorFactory factory, int version) 

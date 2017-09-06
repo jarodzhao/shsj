@@ -23,5 +23,11 @@
 		android:hint="@string/layout_add_content"
 		android:gravity="top"/>
 
+	<CheckBox
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:id="@+id/checkbox_favorited"
+		android:text="@string/layout_add_favorited"/>
+
 </LinearLayout>
 

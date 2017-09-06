@@ -10,23 +10,12 @@
 		android:layout_width="match_parent"
 		android:lines="3"
 		android:padding="5dp"
-		android:id="@+id/main_text_title"
+		android:id="@+id/content_text_title"
 		android:textStyle="bold"
 		android:gravity="left|center_vertical"
 		android:textSize="15sp"/>
 
-	<EditText
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:ems="10"
-		android:id="@+id/main_edit_title"
-		android:lines="3"
-		android:gravity="left|center_vertical"
-		android:padding="5dp"
-		android:textSize="15sp"
-		android:text="EditText"
-		android:visibility="gone"/>
-
+	
 	<View
 		android:layout_height="1dp"
 		android:layout_width="match_parent"
@@ -37,19 +26,13 @@
 		android:layout_width="match_parent"
 		android:text="Text"
 		android:padding="5dp"
-		android:id="@+id/main_text_content"
+		android:id="@+id/content_text_content"
 		android:textSize="18sp"/>
-
-	<EditText
-		android:layout_height="380dp"
+	
+	<View
+		android:layout_height="1dp"
 		android:layout_width="match_parent"
-		android:ems="10"
-		android:id="@+id/main_edit_content"
-		android:padding="5dp"
-		android:text="EditText"
-		android:textSize="18sp"
-		android:visibility="gone"
-		android:gravity="top"/>
+		android:background="#ECECEC"/>
 
 	<LinearLayout
 		android:layout_height="wrap_content"
@@ -61,16 +44,18 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="收藏"
-			android:layout_marginLeft="5dp"
-			android:id="@+id/main_checkbox_favorited"/>
+			android:layout_marginLeft="10dp"
+			android:id="@+id/content_checkbox_favorited"
+			android:layout_weight="1.0"/>
 
 		<TextView
 			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:text="Text"
 			android:gravity="right"
 			android:paddingRight="10dp"
-			android:id="@+id/main_text_pub_date"/>
+			android:id="@+id/content_text_pub_date"
+			android:layout_weight="1.0"/>
 
 	</LinearLayout>
 

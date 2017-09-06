@@ -21,14 +21,18 @@ public class AddActivity extends Activity
 	EditText editText_title;
 	EditText editText_content;
 
+	CheckBox checkBox_favorited;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_add);
-		
+
 		editText_title = (EditText) findViewById(R.id.editText_title);
 		editText_content = (EditText) findViewById(R.id.editText_content);
+
+		checkBox_favorited = (CheckBox) findViewById(R.id.checkbox_favorited);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
@@ -38,7 +42,7 @@ public class AddActivity extends Activity
 	{
         switch (item.getItemId())
 		{
-			//导航键返回 home
+				//导航键返回 home
             case android.R.id.home:
                 UIHelper.returnHome(this);
                 return true;
@@ -63,20 +67,22 @@ public class AddActivity extends Activity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.add_menu, menu);
-		
+
 		return true;
 	}
-	
-	
-	
+
+
+
 
 	Note save()
 	{
+		String favorited = checkBox_favorited.isChecked() ? "1" : "0";
+		
 		note = new Note();
 		note.setTitle(editText_title.getText().toString().trim());
 		note.setContent(editText_content.getText().toString());
 		note.setPubDate(new Date());
-
+		note.setFavorited(favorited);
 		NoteService ns = new NoteService();
 		ns.saveNote(this, note);
 

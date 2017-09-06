@@ -55,10 +55,13 @@ public class MyAdapter extends BaseAdapter
 			viewHolder.textView_contend = (TextView)view.findViewById(R.id.text_content);
 			viewHolder.textView_date = (TextView)view.findViewById(R.id.text_date);
 			viewHolder.textview_type = (TextView)view.findViewById(R.id.text_type);
-			viewHolder.textview_favoried = (TextView) view.findViewById(R.id.text_favoried);
-			
+			//viewHolder.textview_favoried = (TextView) view.findViewById(R.id.text_favoried);
+			viewHolder.iv_favorited = (ImageView) view.findViewById(R.id.iv_favorited);
+
 			view.setTag(viewHolder);
-		}else{
+		}
+		else
+		{
 			view = convertView;
 			viewHolder = (ViewHolder)view.getTag();
 		}
@@ -66,10 +69,17 @@ public class MyAdapter extends BaseAdapter
 		viewHolder.textView_title.setText(note.getTitle());
 		viewHolder.textView_contend.setText(note.getContent());
 		viewHolder.textView_date.setText(
-		new SimpleDateFormat("M-dd HH:mm").format(note.getPubDate()));
+			new SimpleDateFormat("M-dd HH:mm").format(note.getPubDate()));
 		viewHolder.textview_type.setText("分类");
-		viewHolder.textview_favoried.setText("收藏");
-
+		//viewHolder.textview_favoried.setText(note.getFavorited());
+		try{
+		if("1".equals(note.getFavorited()))
+			viewHolder.iv_favorited.setVisibility(View.VISIBLE);
+		else
+			viewHolder.iv_favorited.setVisibility(View.GONE);
+		}catch(Exception e){
+			System.out.println(e.toString());
+		}
 		return view;
 	}
 
@@ -79,8 +89,9 @@ public class MyAdapter extends BaseAdapter
 		TextView textView_contend;
 		TextView textView_date;
 		TextView textview_type;
-		TextView textview_favoried;
-		
+		//TextView textview_favoried;
+		ImageView iv_favorited;
+
 	}
 }
 

@@ -7,6 +7,7 @@
 	
 	<string name="layout_add_title">请输入标题</string>
 	<string name="layout_add_content">请输入记录内容</string>
+	<string name="layout_add_favorited">加入收藏</string>
 	<string name="layout_add_back">返回</string>
 	<string name="layout_add_save">保存</string>
 	

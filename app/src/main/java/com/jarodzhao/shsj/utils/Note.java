@@ -14,16 +14,29 @@ public class Note implements Serializable,Comparable<Note>
 	private String content;
 
 	private Date pub_date;
+	
+	private String favorited;
 
 	public Note(){
 		this.id = UUID.randomUUID();
 	}
 	
-	public Note(UUID id, String title, String content, Date pubDate){
+	public Note(UUID id, String title, String content, Date pubDate, String favorited){
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.pub_date = pubDate;
+		this.favorited = favorited;
+	}
+
+	public void setFavorited(String favorited)
+	{
+		this.favorited = favorited;
+	}
+
+	public String getFavorited()
+	{
+		return favorited;
 	}
 
 	public UUID getId()

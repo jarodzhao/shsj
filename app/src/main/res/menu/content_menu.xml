@@ -1,10 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <item
-        android:id="@+id/content_item_edit"
-		android:showAsAction="always"
-		android:icon="@android:drawable/ic_menu_edit"
-        android:title="修改"/>
 	<item
 		android:visible="true"
         android:id="@+id/content_item_save"
